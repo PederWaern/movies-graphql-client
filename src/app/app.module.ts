@@ -8,12 +8,15 @@ import {HttpClientModule} from '@angular/common/http';
 import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {ConfigService} from './config.service';
-import {ConfigModel} from "./models/config.model";
+import {ConfigModel} from './models/models';
+import { MasterComponent } from './master/master.component';
+import {Routes} from '@angular/router';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MasterComponent
   ],
   imports: [
     BrowserModule,
@@ -25,17 +28,22 @@ import {ConfigModel} from "./models/config.model";
   bootstrap: [AppComponent]
 })
 
+export class AppModule {}
 
-export class AppModule {
-  private config: ConfigModel;
-  constructor(
-    apollo: Apollo,
-    httpLink: HttpLink,
-    imageconfig: ConfigService
-  ) {
-    // apollo.create({
-    //   link: httpLink.create({ uri: 'http://localhost:8080/graphql' }),
-    //   cache: new InMemoryCache()
-    // });
-  }
-}
+const appRoutes: Routes = [
+  { path: 'movies', component: MasterComponent }
+  // { path: 'hero/:id',      component: HeroDetailComponent },
+  // {
+  //   path: 'heroes',
+  //   component: HeroListComponent,
+  //   data: { title: 'Heroes List' }
+  // },
+  // { path: '',
+  //   redirectTo: '/heroes',
+  //   pathMatch: 'full'
+  // },
+  // { path: '**', component: PageNotFoundComponent }
+];
+
+
+

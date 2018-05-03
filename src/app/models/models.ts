@@ -7,3 +7,10 @@ export interface ConfigModel {
   stillSizes: String[];
   backdropSizes: String[];
 }
+
+export interface MovieMaster {
+  title: String;
+  releaseDate: String;
+  posterPath: String;
+  voteAverage: Number;
+}

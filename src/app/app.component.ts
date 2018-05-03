@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import {ConfigService, GET_CONFIGURATION_QUERY} from './config.service';
-import {ConfigModel} from './models/config.model';
+import {ConfigModel} from './models/models';
 import {Subscription} from 'apollo-client/util/Observable';
 
 @Component({
@@ -9,7 +9,7 @@ import {Subscription} from 'apollo-client/util/Observable';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   public configModel: ConfigModel;
   private querySubscription: Subscription;
 
@@ -17,14 +17,19 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.configService.createApollo();
-    this.querySubscription = this.apollo.watchQuery<any>({
-      query: GET_CONFIGURATION_QUERY
-    })
-      .valueChanges
-      .subscribe(({data}) => {
-        this.configModel = data.config;
-        this.configService.setConfig(this.configModel);
-      });
+    // this.configService.createApollo();
+    // this.querySubscription = this.apollo.watchQuery<any>({
+    //   query: GET_CONFIGURATION_QUERY
+    // })
+    //   .valueChanges
+    //   .subscribe(({data}) => {
+    //     this.configModel = data.config;
+    //     this.configService.setConfig(this.configModel);
+    //     console.log(this.configService.getConfig());
+    //   });
+  }
+
+  ngOnDestroy() {
+    // this.querySubscription.unsubscribe();
   }
 }

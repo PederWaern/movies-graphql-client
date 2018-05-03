@@ -1,10 +1,9 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import {ConfigModel} from './models/config.model';
-import {Subscription} from 'apollo-client/util/Observable';
-import {HttpLink} from "apollo-angular-link-http";
-import {InMemoryCache} from "apollo-cache-inmemory";
+import {ConfigModel} from './models/models';
+import {HttpLink} from 'apollo-angular-link-http';
+import {InMemoryCache} from 'apollo-cache-inmemory';
 
 export const GET_CONFIGURATION_QUERY = gql`query Conf {
       config {
@@ -32,8 +31,6 @@ export class ConfigService implements OnInit {
       link: this.httpLink.create({ uri: 'http://localhost:8080/graphql'}),
       cache: new InMemoryCache()
     });
-    console.log('from constructor in appcomponent');
-    console.log(this.apollo.getClient());
   }
 
   getConfig() {
@@ -41,11 +38,7 @@ export class ConfigService implements OnInit {
   }
 
   setConfig(config: ConfigModel) {
-    console.log(config);
     this.config = config;
-  }
-  test() {
-    console.log('test');
   }
 }
 
