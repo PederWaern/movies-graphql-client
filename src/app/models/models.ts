@@ -1,16 +1,16 @@
 export interface ConfigModel {
-  baseUrl: String;
-  secureBaseUrl: String;
-  logoSizes: String[];
+  baseUrl: string;
+  secureBaseUrl: string;
+  logoSizes: string[];
   posterSizes: String[];
-  profileSizes: String[];
-  stillSizes: String[];
-  backdropSizes: String[];
+  profileSizes: string[];
+  stillSizes: string[];
+  backdropSizes: string[];
 }
 
 export interface MovieMaster {
-  title: String;
-  releaseDate: String;
-  posterPath: String;
-  voteAverage: Number;
+  title: string;
+  releaseDate: string;
+  posterPath: string;
+  voteAverage: number;
 }

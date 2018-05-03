@@ -15,10 +15,14 @@ export class MasterComponent implements OnInit {
   allMovies: MovieMaster[];
   private querySubscription: Subscription;
 
+  dataIsFetched: boolean;
+  imagePath = '';
+
 
   constructor(private configService: ConfigService,
               private apollo: Apollo) {
     console.log('hello from master constructor');
+    this.dataIsFetched = false;
   }
 
   ngOnInit() {
@@ -33,7 +37,13 @@ export class MasterComponent implements OnInit {
       .subscribe(({data}) => {
         this.configModel = data.config;
         this.allMovies = data.allMovies;
+        this.setPosterPath();
       });
+  }
+
+  setPosterPath() {
+    this.imagePath = this.configModel.secureBaseUrl + this.configModel.posterSizes[6];
+    console.log(this.imagePath);
   }
 
 }
