@@ -9,6 +9,7 @@ export interface ConfigModel {
 }
 
 export interface MovieMaster {
+  id: string;
   title: string;
   releaseDate: string;
   posterPath: string;

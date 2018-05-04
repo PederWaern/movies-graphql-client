@@ -37,6 +37,7 @@ export class MasterComponent implements OnInit {
       .subscribe(({data}) => {
         this.configModel = data.config;
         this.allMovies = data.allMovies;
+        console.log(this.allMovies[0].id);
         this.setPosterPath();
       });
   }
