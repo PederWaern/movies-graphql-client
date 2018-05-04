@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ConfigService} from "../config.service";
 import {Apollo} from "apollo-angular";
+import {GET_MOVIE_BY_ID} from "../graphql";
+import {Subscription} from "apollo-client/util/Observable";
 
 @Component({
   selector: 'app-details',
@@ -11,13 +13,22 @@ import {Apollo} from "apollo-angular";
 export class DetailsComponent implements OnInit, OnDestroy {
 
   movieID: string;
-  constructor(private activatedRoute: ActivatedRoute, private configService: ConfigService,
+  private querySubscription: Subscription;
+  constructor(private activatedRoute: ActivatedRoute,
               private apollo: Apollo) {
-    console.log('hello from details component');
+    console.log('hllo from details component');
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => this.movieID = params['id']);
+    this.querySubscription = this.apollo.watchQuery<any>({
+      query: GET_MOVIE_BY_ID,
+      variables: {id: this.movieID}
+    })
+      .valueChanges
+      .subscribe(({data}) => {
+        console.log(data);
+      });
   }
 
   ngOnDestroy() {
