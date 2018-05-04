@@ -15,3 +15,23 @@ export interface MovieMaster {
   posterPath: string;
   voteAverage: number;
 }
+
+export interface User {
+  id: string;
+  name: string;
+}
+
+export interface Rating {
+  id: string;
+  rating: number;
+  comment: string;
+  user: User;
+}
+
+export interface MovieDetail {
+  title: string;
+  overview: string;
+  voteAverage: number;
+  backDropPath: string;
+  ratings: Rating[];
+}

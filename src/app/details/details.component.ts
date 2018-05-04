@@ -4,6 +4,7 @@ import {ConfigService} from "../config.service";
 import {Apollo} from "apollo-angular";
 import {GET_MOVIE_BY_ID} from "../graphql";
 import {Subscription} from "apollo-client/util/Observable";
+import {MovieDetail} from "../models/models";
 
 @Component({
   selector: 'app-details',
@@ -13,14 +14,17 @@ import {Subscription} from "apollo-client/util/Observable";
 export class DetailsComponent implements OnInit, OnDestroy {
 
   movieID: string;
+  movieDetail: MovieDetail;
   private querySubscription: Subscription;
   constructor(private activatedRoute: ActivatedRoute,
-              private apollo: Apollo) {
+              private apollo: Apollo,
+              private configService: ConfigService) {
     console.log('hllo from details component');
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => this.movieID = params['id']);
+    this.configService.createApollo();
     this.querySubscription = this.apollo.watchQuery<any>({
       query: GET_MOVIE_BY_ID,
       variables: {id: this.movieID}
@@ -28,6 +32,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
       .valueChanges
       .subscribe(({data}) => {
         console.log(data);
+        this.movieDetail = data.getMovieById;
+        console.log(this.movieDetail);
       });
   }
 

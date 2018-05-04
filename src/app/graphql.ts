@@ -25,5 +25,12 @@ export const GET_MOVIE_BY_ID = gql`query GetOneMovie($id: String!) {
     overview
     voteAverage
     posterPath
+    ratings {
+      user {
+        name
+      }
+      rating
+      comment
     }
+  }
 }`;
