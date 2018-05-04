@@ -10,19 +10,27 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 import {ConfigService} from './config.service';
 import {ConfigModel} from './models/models';
 import { MasterComponent } from './master/master.component';
-import {Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
+import { DetailsComponent } from './details/details.component';
 
+const appRoutes: Routes = [
+  { path: 'movies', component: MasterComponent },
+  { path: 'movies/:id', component: DetailsComponent},
+  { path: '**', component: AppComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    MasterComponent
+    MasterComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [Apollo, HttpLink, ConfigService],
   bootstrap: [AppComponent]
@@ -30,20 +38,7 @@ import {Routes} from '@angular/router';
 
 export class AppModule {}
 
-const appRoutes: Routes = [
-  { path: 'movies', component: MasterComponent }
-  // { path: 'hero/:id',      component: HeroDetailComponent },
-  // {
-  //   path: 'heroes',
-  //   component: HeroListComponent,
-  //   data: { title: 'Heroes List' }
-  // },
-  // { path: '',
-  //   redirectTo: '/heroes',
-  //   pathMatch: 'full'
-  // },
-  // { path: '**', component: PageNotFoundComponent }
-];
+
 
 
 
