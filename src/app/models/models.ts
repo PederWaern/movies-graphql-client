@@ -32,6 +32,7 @@ export interface MovieDetail {
   title: string;
   overview: string;
   voteAverage: number;
-  backDropPath: string;
+  backdropPath: string;
+  posterPath: string;
   ratings: Rating[];
 }

@@ -15,6 +15,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   movieID: string;
   movieDetail: MovieDetail;
+  backdropPath: string;
+  posterPath: string;
   private querySubscription: Subscription;
   constructor(private activatedRoute: ActivatedRoute,
               private apollo: Apollo,
@@ -35,6 +37,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
         console.log(data);
         this.movieDetail = data.getMovieById;
         console.log(this.movieDetail);
+        this.backdropPath = this.configService.getConfig().baseUrl +
+          this.configService.getConfig().backdropSizes[1] +
+          this.movieDetail.backdropPath;
+        this.posterPath = this.configService.getConfig().baseUrl +
+          this.configService.getConfig().posterSizes[3] +
+          this.movieDetail.posterPath;
       });
   }
 
