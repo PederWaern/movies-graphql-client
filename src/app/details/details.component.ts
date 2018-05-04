@@ -20,6 +20,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
               private apollo: Apollo,
               private configService: ConfigService) {
     console.log('hllo from details component');
+    console.log(this.configService.getConfig());
   }
 
   ngOnInit() {

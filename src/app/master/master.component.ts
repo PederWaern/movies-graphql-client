@@ -36,6 +36,7 @@ export class MasterComponent implements OnInit {
       .valueChanges
       .subscribe(({data}) => {
         this.configModel = data.config;
+        this.configService.setConfig(this.configModel);
         this.allMovies = data.allMovies;
         this.setPosterPath();
       });
@@ -43,7 +44,6 @@ export class MasterComponent implements OnInit {
 
   setPosterPath() {
     this.imagePath = this.configModel.secureBaseUrl + this.configModel.posterSizes[6];
-    console.log(this.imagePath);
   }
 
 }

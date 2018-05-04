@@ -14,9 +14,10 @@ import {RouterModule, Routes} from '@angular/router';
 import { DetailsComponent } from './details/details.component';
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: 'movies', pathMatch: 'full'},
   { path: 'movies', component: MasterComponent },
   { path: 'movies/:id', component: DetailsComponent},
-  { path: '**', component: AppComponent }
+  { path: '**', redirectTo: 'movies', pathMatch: 'full' }
 ];
 
 @NgModule({
