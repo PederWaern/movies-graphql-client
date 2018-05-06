@@ -8,6 +8,7 @@ h1, h2, h3, h4, h5, p{
   color: #cdad00 !important;
 }
 
-body {
+body, table {
   margin-top: 20px !important;
+  color: #cdad00 !important;
 }

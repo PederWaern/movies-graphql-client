@@ -35,3 +35,10 @@ export const GET_MOVIE_BY_ID = gql`query GetOneMovie($id: String!) {
     }
   }
 }`;
+
+export const GET_ALL_USERS = gql`query GetAllUsers {
+  allUsers{
+    id
+    name
+  }
+}`;

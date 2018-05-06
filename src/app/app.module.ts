@@ -12,6 +12,7 @@ import {ConfigModel} from './models/models';
 import { MasterComponent } from './master/master.component';
 import {RouterModule, Routes} from '@angular/router';
 import { DetailsComponent } from './details/details.component';
+import { UserComponent } from './user/user.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'movies', pathMatch: 'full'},
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     MasterComponent,
-    DetailsComponent
+    DetailsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

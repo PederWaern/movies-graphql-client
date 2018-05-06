@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col">
+    Logged in as:
+    <select (ngModelChange)="setUser($event)">
+      <option *ngFor="let user of users">
+        {{user.name}}
+      </option>
+    </select>
+  </div>
+</div>
+
