@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col">
     Logged in as:
-    <select (ngModelChange)="setUser($event)">
-      <option *ngFor="let user of users">
-        {{user.name}}
+    <select [(ngModel)]="currentUser">
+      <option *ngFor="let user of users" [value]="user.name">
+        {{ user.name}}
       </option>
     </select>
   </div>

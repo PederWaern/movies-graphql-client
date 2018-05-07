@@ -13,6 +13,8 @@ import { MasterComponent } from './master/master.component';
 import {RouterModule, Routes} from '@angular/router';
 import { DetailsComponent } from './details/details.component';
 import { UserComponent } from './user/user.component';
+import {FormsModule} from '@angular/forms';
+import {UserService} from "./user.service";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'movies', pathMatch: 'full'},
@@ -30,12 +32,13 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [Apollo, HttpLink, ConfigService],
+  providers: [Apollo, HttpLink, ConfigService, UserService],
   bootstrap: [AppComponent]
 })
 

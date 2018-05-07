@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConfigModel} from './models/models';
 import {Subscription} from 'apollo-client/util/Observable';
+import {UserService} from "./user.service";
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,8 @@ import {Subscription} from 'apollo-client/util/Observable';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public configModel: ConfigModel;
-  private querySubscription: Subscription;
-
   constructor() {
+    console.log('hello from appcomponent');
   }
 
   ngOnInit() {}
