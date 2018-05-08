@@ -4,6 +4,7 @@ import {ConfigModel, MovieMaster} from '../models/models';
 import {GET_MOVIE_MASTER_WITH_CONFIG} from '../graphql';
 import {Subscription} from 'apollo-client/util/Observable';
 import {Apollo} from 'apollo-angular';
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-master',
@@ -20,14 +21,13 @@ export class MasterComponent implements OnInit {
 
 
   constructor(private configService: ConfigService,
-              private apollo: Apollo) {
+              private apollo: Apollo,
+              private userService: UserService) {
     console.log('hello from master constructor');
     this.dataIsFetched = false;
   }
 
-  ngOnInit() {
-    console.log('before create apollo');
-    console.log(this.apollo.getClient());
+  ngOnInit() {;
     this.configService.createApollo();
 
     this.querySubscription = this.apollo.watchQuery<any>({
@@ -36,14 +36,14 @@ export class MasterComponent implements OnInit {
       .valueChanges
       .subscribe(({data}) => {
         this.configModel = data.config;
-        this.configService.setConfig(this.configModel);
+        // this.configService.setConfig(this.configModel);
         this.allMovies = data.allMovies;
         this.setPosterPath();
       });
   }
 
   setPosterPath() {
-    this.imagePath = this.configModel.secureBaseUrl + this.configModel.posterSizes[6];
+    this.imagePath = this.configService.getConfig().secureBaseUrl + this.configModel.posterSizes[6];
   }
 
 }
