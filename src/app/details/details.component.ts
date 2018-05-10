@@ -1,11 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ConfigService} from "../config.service";
 import {Apollo} from "apollo-angular";
-import {GET_MOVIE_BY_ID, GET_RATINGS_FOR_USER} from "../graphql";
+import {GET_MOVIE_BY_ID, GET_RATINGS_FOR_USER, SUBMIT_RATING} from "../graphql";
 import {Subscription} from "apollo-client/util/Observable";
 import {MovieDetail, Rating, User} from "../models/models";
 import {UserService} from "../user.service";
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-details',
@@ -19,7 +20,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
   userRatings: Rating[] = [];
   backdropPath: string;
   posterPath: string;
-
+  ratingRange: number[] = [];
+  newRating: Rating = {} as Rating;
+  @ViewChild('ratingForm') ratingForm: NgForm;
 
   private currentUser: User;
   private querySubscription: Subscription;
@@ -31,6 +34,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.setRatingRange();
+    // this.initNewRating();
     this.backdropPath = '';
     this.posterPath = '';
     this.activatedRoute.params.subscribe(params => this.movieID = params['id']);
@@ -60,9 +65,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
       })
         .valueChanges
         .subscribe(({data}) => {
-          // console.log(data);
+          this.userRatings = [];
           const ratings = data.getUserById.ratings;
-          // this.userRating = ratings.find(rating => rating.movie.id === this.movieID);
           for (const rating of ratings) {
             if (rating.movie.id === this.movieID) {
               this.userRatings.push(rating);
@@ -79,8 +83,39 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.ratingSubscription.unsubscribe();
   }
 
-  setImagePath() {
-
+  private setRatingRange() {
+    for (let i = 10; i >= 1; i--) {
+      this.ratingRange.push(i);
+    }
+    console.log(this.ratingRange);
   }
 
+  onSubmitClicked() {
+    console.log(this.newRating);
+    this.submitRating();
+  }
+
+  submitRating() {
+    console.log('from before submitRating');
+    console.log(this.currentUser.id);
+    console.log(this.movieID);
+    console.log(this.newRating.comment);
+    console.log(this.newRating.rating);
+
+    return this.apollo.mutate({
+      mutation: SUBMIT_RATING,
+      refetchQueries: [{ query: GET_RATINGS_FOR_USER, variables: {userId: this.currentUser.id}
+      }],
+      variables: {
+        userId: this.currentUser.id,
+        movieId: this.movieID,
+        comment: this.newRating.comment,
+        movieRating: this.newRating.rating.valueOf()
+      }
+    }).subscribe((res) => {
+      console.log(res);
+      this.userRatings.push(this.newRating);
+      this.newRating = {} as Rating;
+    });
+  }
 }

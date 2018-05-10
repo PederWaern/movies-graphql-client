@@ -3,10 +3,10 @@
       <img [src]="posterPath" width="300px" alt="Card image cap">
   </div>
   <div class="col-8">
-    <h2>{{ movieDetail?.title}}</h2>
+    <h1>{{ movieDetail?.title}}</h1>
     <p>Average rating: {{ movieDetail?.voteAverage }}</p>
     <p>{{ movieDetail?.overview }}</p>
-    <table class="table table-dark" *ngIf="userRatings != undefined" >
+    <table class="table table-dark">
       <thead>
       <th>Comment</th>
       <th>Rating</th>
@@ -24,5 +24,30 @@
 <div class="row">
   <div class="col-md-4">
       <img [src]="backdropPath" width="300px" alt="Card image cap">
+  </div>
+  <div class="col-md-8">
+
+    <form #ratingForm="ngForm">
+      <div class="form-row align-items-md-center">
+        <div class="col-auto">
+          <label for="rating">Rating:</label>
+          <select id="rating" class="form-control mb-2" name="rating" [(ngModel)]="newRating.rating">
+            <option *ngFor="let i of ratingRange" [value]="i"> {{ i }}</option>
+          </select>
+        </div>
+
+        <div class="col-auto">
+          <label for="comment">Comment:</label>
+          <input id="comment" class="form-control mb-2" #comment="ngModel" name="comment" type="text" [(ngModel)]="newRating.comment"
+
+          >
+        </div>
+      </div>
+        <div class="form-row align-items-md-center">
+          <div class="col-auto">
+            <button class="btn btn-warning mb-2" (click)="onSubmitClicked()">Submit rating</button>
+          </div>
+        </div>
+    </form>
   </div>
 </div>
