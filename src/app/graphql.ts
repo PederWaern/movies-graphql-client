@@ -54,3 +54,9 @@ export const SUBMIT_RATING = gql` mutation CreateRating($movieRating: Int!, $com
     id
   }
 }`;
+
+export const DELETE_RATING = gql`mutation DeleteRating($id: String!) {
+  deleteRating(id:$id) {
+    id
+  }
+}`;

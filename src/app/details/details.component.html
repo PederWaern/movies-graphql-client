@@ -10,11 +10,13 @@
       <thead>
       <th>Comment</th>
       <th>Rating</th>
+      <th></th>
       </thead>
       <tbody>
       <tr *ngFor="let rating of userRatings">
         <td>{{ rating?.comment }}</td>
         <td>{{ rating?.rating }}/10</td>
+        <td align="right"><button class="btn btn-sm" style="background-color: #cdad00" (click)="deleteRating(rating)">X</button></td>
       </tr>
       </tbody>
     </table>
@@ -38,9 +40,7 @@
 
         <div class="col-auto">
           <label for="comment">Comment:</label>
-          <input id="comment" class="form-control mb-2" #comment="ngModel" name="comment" type="text" [(ngModel)]="newRating.comment"
-
-          >
+          <input id="comment" class="form-control mb-2" #comment="ngModel" name="comment" type="text" [(ngModel)]="newRating.comment">
         </div>
       </div>
         <div class="form-row align-items-md-center">

@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ConfigService} from "../config.service";
 import {Apollo} from "apollo-angular";
-import {GET_MOVIE_BY_ID, GET_RATINGS_FOR_USER, SUBMIT_RATING} from "../graphql";
+import {DELETE_RATING, GET_MOVIE_BY_ID, GET_RATINGS_FOR_USER, SUBMIT_RATING} from "../graphql";
 import {Subscription} from "apollo-client/util/Observable";
 import {MovieDetail, Rating, User} from "../models/models";
 import {UserService} from "../user.service";
@@ -35,7 +35,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setRatingRange();
-    // this.initNewRating();
     this.backdropPath = '';
     this.posterPath = '';
     this.activatedRoute.params.subscribe(params => this.movieID = params['id']);
@@ -91,7 +90,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmitClicked() {
-    console.log(this.newRating);
     this.submitRating();
   }
 
@@ -116,6 +114,21 @@ export class DetailsComponent implements OnInit, OnDestroy {
       console.log(res);
       this.userRatings.push(this.newRating);
       this.newRating = {} as Rating;
+    });
+  }
+
+  deleteRating(rating: Rating) {
+    return this.apollo.mutate({
+      mutation: DELETE_RATING,
+      refetchQueries: [{ query: GET_RATINGS_FOR_USER, variables: {userId: this.currentUser.id}
+      }],
+      variables: {
+        id: rating.id
+      }
+    }).subscribe((next) => {
+      this.userRatings = this.userRatings.filter((rate) => rate.id !== rating.id);
+      console.log('after filter');
+      console.log(this.userRatings);
     });
   }
 }
