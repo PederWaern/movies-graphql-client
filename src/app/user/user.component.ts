@@ -32,7 +32,6 @@ export class UserComponent implements OnInit, OnDestroy {
         const firstUser = this.users[0];
         this.userService.setCurrentUser(firstUser);
         this.currentUserSub = this.userService.currentUser.subscribe((user) => {
-          console.log('see this??');
           this.currentUser = user;
         });
       });
@@ -47,8 +46,9 @@ export class UserComponent implements OnInit, OnDestroy {
 
   }
 
-  setUser(user: User) {
-    this.currentUser = user;
+
+  onSelectUser(user) {
+    this.userService.setCurrentUser(user);
   }
 
   ngOnDestroy() {

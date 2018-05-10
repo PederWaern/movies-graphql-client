@@ -43,7 +43,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       })
         .valueChanges
         .subscribe(({data}) => {
-          console.log(data);
+          // console.log(data);
           this.movieDetail = data.getMovieById;
           console.log(this.movieDetail);
           this.backdropPath = this.configService.getConfig().baseUrl +
@@ -59,7 +59,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       })
         .valueChanges
         .subscribe(({data}) => {
-          console.log(data);
+          // console.log(data);
           const ratings = data.getUserById.ratings;
           this.userRating = ratings.find(rating => rating.movie.id === this.movieID);
           console.log(this.userRating);
