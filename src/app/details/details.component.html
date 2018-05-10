@@ -6,14 +6,16 @@
     <h2>{{ movieDetail?.title}}</h2>
     <p>Average rating: {{ movieDetail?.voteAverage }}</p>
     <p>{{ movieDetail?.overview }}</p>
-    <table class="table table-dark" *ngIf="userRating != undefined" >
+    <table class="table table-dark" *ngIf="userRatings != undefined" >
       <thead>
       <th>Comment</th>
       <th>Rating</th>
       </thead>
       <tbody>
-        <td>{{ userRating?.comment }}</td>
-        <td>{{ userRating?.rating }}/10</td>
+      <tr *ngFor="let rating of userRatings">
+        <td>{{ rating?.comment }}</td>
+        <td>{{ rating?.rating }}/10</td>
+      </tr>
       </tbody>
     </table>
 

@@ -16,7 +16,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   movieID: string;
   movieDetail: MovieDetail;
-  userRating: Rating;
+  userRatings: Rating[] = [];
   backdropPath: string;
   posterPath: string;
 
@@ -37,6 +37,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.configService.createApollo();
     this.userService.currentUser.asObservable().subscribe((user) => {
       this.currentUser = user;
+      this.userRatings = [];
       this.querySubscription = this.apollo.watchQuery<any>({
         query: GET_MOVIE_BY_ID,
         variables: {movieId: this.movieID}
@@ -61,8 +62,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
         .subscribe(({data}) => {
           // console.log(data);
           const ratings = data.getUserById.ratings;
-          this.userRating = ratings.find(rating => rating.movie.id === this.movieID);
-          console.log(this.userRating);
+          // this.userRating = ratings.find(rating => rating.movie.id === this.movieID);
+          for (const rating of ratings) {
+            if (rating.movie.id === this.movieID) {
+              this.userRatings.push(rating);
+            }
+          }
+          console.log(this.userRatings);
         });
     });
   }

@@ -42,16 +42,15 @@ export const GET_RATINGS_FOR_USER = gql`query Ratings($userId: String!) {
   }
 }`;
 
-// export const GET_RATING_BY_USER_AND_MOVIE = gql`query GetOneRating($userId: String!, $movieId: String!) {
-//   ratingByUserAndMovie(userId:$userId, movieId: $movieId) {
-//     comment
-//     id
-//     rating
-//   }
-// }`;
 export const GET_ALL_USERS = gql`query GetAllUsers {
   allUsers{
     id
     name
+  }
+}`;
+
+export const SUBMIT_RATING = gql` mutation CreateRating($movieRating: Int!, $comment: String!, $userId: String!, $movieId: String!)  {
+  createRating(movieRating:$movieRating, comment:$comment, userId:$userId, movieId:$movieId) {
+    id
   }
 }`;
