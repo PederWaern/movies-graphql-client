@@ -4,7 +4,6 @@ export const GET_MOVIE_MASTER_WITH_CONFIG = gql`query MovieMaster {
     allMovies {
         id
   	    title
-        releaseDate
         posterPath
         voteAverage
       }
@@ -27,6 +26,8 @@ export const GET_MOVIE_BY_ID = gql`query GetOneMovie($movieId: String!) {
     voteAverage
     backdropPath
     posterPath
+    voteAverage
+    releaseDate
   }
 }`;
 

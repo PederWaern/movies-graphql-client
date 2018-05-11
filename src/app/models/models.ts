@@ -11,7 +11,6 @@ export interface ConfigModel {
 export class MovieMaster {
   id: string;
   title: string;
-  releaseDate: string;
   posterPath: string;
   voteAverage: number;
   userRating: number;
@@ -37,5 +36,6 @@ export class MovieDetail {
   voteAverage: number;
   backdropPath: string;
   posterPath: string;
+  releaseDate: string;
   ratings: Rating[] = [];
 }

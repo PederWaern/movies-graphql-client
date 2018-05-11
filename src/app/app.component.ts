@@ -10,7 +10,6 @@ import {UserService} from "./user.service";
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor() {
-    console.log('hello from appcomponent');
   }
 
   ngOnInit() {}

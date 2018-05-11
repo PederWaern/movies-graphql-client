@@ -41,9 +41,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       })
         .valueChanges
         .subscribe(({data}) => {
-          // console.log(data);
           this.movieDetail = data.getMovieById;
-          console.log(this.movieDetail);
           this.backdropPath = this.configService.getConfig().baseUrl +
             this.configService.getConfig().backdropSizes[1] +
             this.movieDetail.backdropPath;
@@ -64,7 +62,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
               this.userRatings.push(rating);
             }
           }
-          console.log(this.userRatings);
         });
     });
   }
@@ -87,7 +84,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     for (let i = 10; i >= 1; i--) {
       this.ratingRange.push(i);
     }
-    console.log(this.ratingRange);
   }
 
   onSubmitClicked() {
@@ -106,7 +102,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
         movieRating: this.newRating.rating.valueOf()
       }
     }).subscribe((res) => {
-      console.log(res);
       this.userRatings.push(this.newRating);
       this.newRating = {} as Rating;
     });
@@ -123,8 +118,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
       }
     }).subscribe((next) => {
       this.userRatings = this.userRatings.filter((rate) => rate.id !== rating.id);
-      console.log('after filter');
-      console.log(this.userRatings);
     });
   }
 }

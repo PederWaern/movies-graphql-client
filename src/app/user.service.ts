@@ -15,13 +15,6 @@ export class UserService implements OnInit {
   ngOnInit() {}
 
   setCurrentUser(user: User) {
-    console.log('from set current user');
-    console.log(user);
     this.currentUser.next(user);
-    console.log(this.currentUser);
   }
-
-  getCurrentUser(): any {
-  }
-
 }

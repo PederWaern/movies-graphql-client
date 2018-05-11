@@ -4,7 +4,6 @@
       <img class="card-img-top" src="{{ movie.fullImagePath}}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title" style="text-decoration: underline">{{ movie?.title }}</h5>
-        <p class="card-text"><b>Released:</b> {{ movie?.releaseDate }}</p>
         <p class="card-text"><b>TMDB Average Rating:</b> {{ movie?.voteAverage }}</p>
         <p class="card-text" style="color: #53a1ba!important" *ngIf="movie.userRating !== undefined">
           <b>{{ currentUser?.name.split(' ')[0] }}'s Rating: {{ movie?.userRating }}</b>
