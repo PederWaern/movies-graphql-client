@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, RouterLink, RouterModule} from '@angular/router';
-import {ConfigService} from "../config.service";
-import {Apollo} from "apollo-angular";
-import {DELETE_RATING, GET_MOVIE_BY_ID, GET_RATINGS_FOR_USER, SUBMIT_RATING} from "../graphql";
-import {Subscription} from "apollo-client/util/Observable";
-import {MovieDetail, Rating, User} from "../models/models";
-import {UserService} from "../user.service";
+import {ConfigService} from '../config.service';
+import {Apollo} from 'apollo-angular';
+import {DELETE_RATING, GET_MOVIE_BY_ID, GET_RATINGS_FOR_USER, MASTER_RATING, SUBMIT_RATING} from '../graphql';
+import {Subscription} from 'apollo-client/util/Observable';
+import {MovieDetail, Rating, User} from '../models/models';
+import {UserService} from '../user.service';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -98,7 +98,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     return this.apollo.mutate({
       mutation: SUBMIT_RATING,
       refetchQueries: [{ query: GET_RATINGS_FOR_USER, variables: {userId: this.currentUser.id}
-      }],
+      }, {query: MASTER_RATING, variables: {userId: this.currentUser.id}}],
       variables: {
         userId: this.currentUser.id,
         movieId: this.movieID,
@@ -115,7 +115,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   deleteRating(rating: Rating) {
     return this.apollo.mutate({
       mutation: DELETE_RATING,
-      refetchQueries: [{ query: GET_RATINGS_FOR_USER, variables: {userId: this.currentUser.id}
+      refetchQueries: [{ query: GET_RATINGS_FOR_USER, variables: {userId: this.currentUser.id}},
+        { query: MASTER_RATING, variables: {userId: this.currentUser.id}
       }],
       variables: {
         id: rating.id

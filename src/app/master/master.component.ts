@@ -5,7 +5,7 @@ import {GET_MOVIE_MASTER_WITH_CONFIG, MASTER_RATING} from '../graphql';
 import {Subscription} from 'apollo-client/util/Observable';
 import {Apollo} from 'apollo-angular';
 import {UserService} from '../user.service';
-import {forEach} from "async";
+
 
 @Component({
   selector: 'app-master',
@@ -16,7 +16,6 @@ export class MasterComponent implements OnInit, OnDestroy {
   allMovies = [] as MovieMaster[];
   private querySubscription: Subscription;
   private ratingSubscription: Subscription;
-  imagePath = '';
   private currentUser: User;
 
   constructor(private configService: ConfigService,
@@ -57,6 +56,7 @@ export class MasterComponent implements OnInit, OnDestroy {
           const ratings = data.ratingsByUser;
           console.log(ratings);
           for (const movie of this.allMovies) {
+            movie.userRating = undefined;
             for (let i = 0; i < ratings.length; i++) {
               if (ratings[i].movie.id === movie.id) {
                 movie.userRating = ratings[i].rating;
@@ -67,10 +67,6 @@ export class MasterComponent implements OnInit, OnDestroy {
           console.log(data);
         });
     });
-  }
-
-  setPosterPath() {
-    this.imagePath = this.configService.getConfig().secureBaseUrl + this.configService.getConfig().posterSizes[6];
   }
 
   ngOnDestroy() {
