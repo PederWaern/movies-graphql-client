@@ -16,7 +16,7 @@ export class MasterComponent implements OnInit, OnDestroy {
   allMovies = [] as MovieMaster[];
   private querySubscription: Subscription;
   private ratingSubscription: Subscription;
-  private currentUser: User;
+  currentUser: User;
 
   constructor(private configService: ConfigService,
               private apollo: Apollo,

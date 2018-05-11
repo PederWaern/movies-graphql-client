@@ -13,12 +13,14 @@
       <thead>
       <th>Comment</th>
       <th>Rating</th>
+      <th>Created</th>
       <th></th>
       </thead>
       <tbody>
       <tr *ngFor="let rating of userRatings">
         <td>{{ rating?.comment }}</td>
         <td>{{ rating?.rating }}/10</td>
+        <td>{{ rating?.createdTimeStamp }}</td>
         <td align="right"><button class="btn btn-sm" style="background-color: #cdad00" (click)="deleteRating(rating)">X</button></td>
       </tr>
       </tbody>

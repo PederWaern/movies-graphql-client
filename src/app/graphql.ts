@@ -36,6 +36,7 @@ export const GET_RATINGS_FOR_USER = gql`query Ratings($userId: String!) {
       id
       comment
       rating
+      createdTimeStamp
       movie {
         id
       }

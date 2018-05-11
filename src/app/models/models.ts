@@ -28,6 +28,7 @@ export interface Rating {
   rating: number;
   comment: string;
   user: User;
+  createdTimeStamp: string;
 }
 
 export class MovieDetail {
