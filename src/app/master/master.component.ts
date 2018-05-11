@@ -31,15 +31,7 @@ export class MasterComponent implements OnInit, OnDestroy {
       .valueChanges
       .subscribe(({data}) => {
         for (const movie of data.allMovies) {
-          const newMovie = new MovieMaster();
-          newMovie.title = movie.title;
-          newMovie.posterPath = movie.posterPath;
-          newMovie.id = movie.id;
-          newMovie.voteAverage = movie.voteAverage;
-          newMovie.fullImagePath = this.configService.getConfig().secureBaseUrl +
-            this.configService.getConfig().posterSizes[6] +
-            movie.posterPath;
-          this.allMovies.push(newMovie);
+          this.setMovies(movie);
         }
       });
     this.userService.currentUser.asObservable().subscribe((user) => {
@@ -50,18 +42,35 @@ export class MasterComponent implements OnInit, OnDestroy {
       })
         .valueChanges
         .subscribe(({data}) => {
-          const ratings = data.ratingsByUser;
-          for (const movie of this.allMovies) {
-            movie.userRating = undefined;
-            for (let i = 0; i < ratings.length; i++) {
-              if (ratings[i].movie.id === movie.id) {
-                movie.userRating = ratings[i].rating;
-                break;
-              }
-            }
-          }
+          this.setRatingsForUser(data);
         });
     });
+  }
+
+  private setMovies(movie) {
+    const newMovie = new MovieMaster();
+    newMovie.title = movie.title;
+    newMovie.posterPath = movie.posterPath;
+    newMovie.id = movie.id;
+    newMovie.voteAverage = movie.voteAverage;
+    newMovie.fullImagePath = this.configService.getConfig().secureBaseUrl +
+      this.configService.getConfig().posterSizes[6] +
+      movie.posterPath;
+    this.allMovies.push(newMovie);
+    return newMovie;
+  }
+
+  private setRatingsForUser(data: any) {
+    const ratings = data.ratingsByUser;
+    for (const movie of this.allMovies) {
+      movie.userRating = undefined;
+      for (let i = 0; i < ratings.length; i++) {
+        if (ratings[i].movie.id === movie.id) {
+          movie.userRating = ratings[i].rating;
+          break;
+        }
+      }
+    }
   }
 
   ngOnDestroy() {

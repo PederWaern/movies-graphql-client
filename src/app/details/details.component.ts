@@ -41,13 +41,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       })
         .valueChanges
         .subscribe(({data}) => {
-          this.movieDetail = data.getMovieById;
-          this.backdropPath = this.configService.getConfig().baseUrl +
-            this.configService.getConfig().backdropSizes[1] +
-            this.movieDetail.backdropPath;
-          this.posterPath = this.configService.getConfig().baseUrl +
-            this.configService.getConfig().posterSizes[3] +
-            this.movieDetail.posterPath;
+          this.setMovieAndImageConfig(data);
         });
       this.ratingSubscription = this.apollo.watchQuery<any>({
         query: GET_RATINGS_FOR_USER,
@@ -64,6 +58,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
           }
         });
     });
+  }
+
+  private setMovieAndImageConfig(data: any) {
+    this.movieDetail = data.getMovieById;
+    this.backdropPath = this.configService.getConfig().baseUrl +
+      this.configService.getConfig().backdropSizes[1] +
+      this.movieDetail.backdropPath;
+    this.posterPath = this.configService.getConfig().baseUrl +
+      this.configService.getConfig().posterSizes[3] +
+      this.movieDetail.posterPath;
   }
 
   constructor(private activatedRoute: ActivatedRoute,
