@@ -3,10 +3,12 @@
     <div class="card blackcard" routerLink= {{movie.id}}>
       <img class="card-img-top" src="{{ movie.fullImagePath}}" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">{{ movie?.title }}</h5>
-        <p class="card-text">Released: {{ movie?.releaseDate }}</p>
-        <p class="card-text">TMDB Rating: {{ movie?.voteAverage }}</p>
-        <p class="card-text">My Rating: {{ movie?.userRating }}</p>
+        <h5 class="card-title" style="text-decoration: underline">{{ movie?.title }}</h5>
+        <p class="card-text"><b>Released:</b> {{ movie?.releaseDate }}</p>
+        <p class="card-text"><b>TMDB Rating:</b> {{ movie?.voteAverage }}</p>
+        <p class="card-text" style="color: #53a1ba!important" *ngIf="movie.userRating !== undefined">
+          <b>My Rating: {{ movie?.userRating }}</b>
+        </p>
       </div>
     </div>
   </div>
