@@ -1,11 +1,12 @@
 <div class="row card-group">
   <div class="col-3"  *ngFor="let movie of allMovies">
     <div class="card blackcard" routerLink= {{movie.id}}>
-      <img class="card-img-top" src="{{ this.imagePath + movie.posterPath}}" alt="Card image cap">
+      <img class="card-img-top" src="{{ movie.fullImagePath}}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{ movie?.title }}</h5>
         <p class="card-text">Released: {{ movie?.releaseDate }}</p>
-        <p class="card-text">Rating: {{ movie.voteAverage }}</p>
+        <p class="card-text">TMDB Rating: {{ movie?.voteAverage }}</p>
+        <p class="card-text">My Rating: {{ movie?.userRating }}</p>
       </div>
     </div>
   </div>

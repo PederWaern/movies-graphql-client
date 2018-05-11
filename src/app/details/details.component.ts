@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink, RouterModule} from '@angular/router';
 import {ConfigService} from "../config.service";
 import {Apollo} from "apollo-angular";
 import {DELETE_RATING, GET_MOVIE_BY_ID, GET_RATINGS_FOR_USER, SUBMIT_RATING} from "../graphql";
@@ -27,14 +27,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   private currentUser: User;
   private querySubscription: Subscription;
   private ratingSubscription: Subscription;
-  constructor(private activatedRoute: ActivatedRoute,
-              private apollo: Apollo,
-              private configService: ConfigService,
-              private userService: UserService
-  ) {}
-
   ngOnInit() {
-    this.setRatingRange();
     this.backdropPath = '';
     this.posterPath = '';
     this.activatedRoute.params.subscribe(params => this.movieID = params['id']);
@@ -76,6 +69,14 @@ export class DetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  constructor(private activatedRoute: ActivatedRoute,
+              private apollo: Apollo,
+              private configService: ConfigService,
+              private userService: UserService
+  ) {
+    this.setRatingRange();
+  }
+
   ngOnDestroy() {
     this.activatedRoute.params.subscribe().unsubscribe();
     this.querySubscription.unsubscribe();
@@ -94,12 +95,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   submitRating() {
-    console.log('from before submitRating');
-    console.log(this.currentUser.id);
-    console.log(this.movieID);
-    console.log(this.newRating.comment);
-    console.log(this.newRating.rating);
-
     return this.apollo.mutate({
       mutation: SUBMIT_RATING,
       refetchQueries: [{ query: GET_RATINGS_FOR_USER, variables: {userId: this.currentUser.id}

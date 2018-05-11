@@ -8,12 +8,14 @@ export interface ConfigModel {
   backdropSizes: string[];
 }
 
-export interface MovieMaster {
+export class MovieMaster {
   id: string;
   title: string;
   releaseDate: string;
   posterPath: string;
   voteAverage: number;
+  userRating: number;
+  fullImagePath: string;
 }
 
 export interface User {
@@ -28,11 +30,11 @@ export interface Rating {
   user: User;
 }
 
-export interface MovieDetail {
+export class MovieDetail {
   title: string;
   overview: string;
   voteAverage: number;
   backdropPath: string;
   posterPath: string;
-  ratings: Rating[];
+  ratings: Rating[] = [];
 }

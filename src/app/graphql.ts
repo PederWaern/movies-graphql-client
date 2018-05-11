@@ -19,6 +19,7 @@ export const GET_MOVIE_MASTER_WITH_CONFIG = gql`query MovieMaster {
       }
     }`;
 
+
 export const GET_MOVIE_BY_ID = gql`query GetOneMovie($movieId: String!) {
   getMovieById(id:$movieId) {
     title
@@ -41,6 +42,18 @@ export const GET_RATINGS_FOR_USER = gql`query Ratings($userId: String!) {
     }
   }
 }`;
+
+export const MASTER_RATING = gql`query MasterRating($userId: String!) {
+  ratingsByUser(id:$userId) {
+    rating
+    movie {
+      id
+    }
+  }
+}`;
+
+
+
 
 export const GET_ALL_USERS = gql`query GetAllUsers {
   allUsers{

@@ -43,9 +43,7 @@ export class UserComponent implements OnInit, OnDestroy {
         this.configModel = data.config;
         this.configService.setConfig(this.configModel);
       });
-
   }
-
 
   onSelectUser(user) {
     this.userService.setCurrentUser(user);
