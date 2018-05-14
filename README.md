@@ -1,5 +1,16 @@
 # MovieGraphqlClient
 
+To run this application please make sure you have the latest version of Node and NPM installed.
+Clone this repository and run 
+`npm install`
+followed by
+`npm start`
+
+Note that this application is strongly coupled to the backend GraphQL-api found here:
+https://github.com/PederWaern/movies-graphql
+So make sure you have that up and running before attempting to start this client application.
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
 
 ## Development server
