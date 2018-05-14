@@ -4,7 +4,7 @@ To run this application please make sure you have the latest version of Node and
 Clone this repository and run 
 `npm install`
 followed by
-`npm start`
+`npm start` in the project root folder. 
 
 Note that this application is strongly coupled to the backend GraphQL-api found here:
 https://github.com/PederWaern/movies-graphql
