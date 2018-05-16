@@ -7,8 +7,8 @@
       <span class="badge badge-dark" style="margin-bottom: 10px"><<<</span>
     </a>
     <h1>{{ movieDetail?.title}}</h1>
-    <p><b>Release date:</b> {{ movieDetail?.releaseDate}}</p>
-    <p><b>TMDB Average rating:</b> {{ movieDetail?.voteAverage }} / 10</p>
+    <p style="color: darkgoldenrod !important"><b>Release date:</b> {{ movieDetail?.releaseDate}}</p>
+    <p style="color: #F6D406 !important"><b>TMDB Average rating:</b> {{ movieDetail?.voteAverage }} / 10</p>
     <p>{{ movieDetail?.overview }}</p>
     <table class="table table-dark" *ngIf="userRatings.length > 0">
       <thead>
@@ -26,8 +26,8 @@
       </tr>
       </tbody>
     </table>
-    <div *ngIf="userRatings.length < 1">
-      <h2>Add rating</h2>
+    <div *ngIf="userRatings.length < 1" style="margin-top: 100px">
+      <h3>Add Rating</h3>
       <form #ratingForm="ngForm" >
         <div class="form-row align-items-md-center">
           <div class="col-auto">
