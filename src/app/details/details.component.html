@@ -45,7 +45,7 @@
         </div>
         <div class="form-row align-items-md-center">
           <div class="col-auto">
-            <button class="btn btn-warning mb-2" (click)="onSubmitClicked()">Submit</button>
+            <button class="btn btn-warning mb-2" [disabled]="newRating.rating === undefined"(click)="onSubmitClicked()">Submit</button>
           </div>
         </div>
       </form>

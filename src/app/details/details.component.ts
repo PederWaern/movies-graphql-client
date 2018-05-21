@@ -98,6 +98,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   submitRating() {
+    if (this.newRating.comment === undefined || this.newRating.comment.length < 1) {
+      this.newRating.comment = '';
+    }
     return this.apollo.mutate({
       mutation: SUBMIT_RATING,
       refetchQueries: [{ query: GET_RATINGS_FOR_USER, variables: {userId: this.currentUser.id}
