@@ -1,6 +1,7 @@
 <div class="row">
-  <div class="col-md-4">
-      <img [src]="posterPath" width="300px" alt="Card image cap">
+  <div class="col-4">
+      <img [src]="posterPath" width="300px" alt="Poster image">
+      <img [src]="backdropPath" width="300px" alt="Backdrop image" style="padding-top: 10px">
   </div>
   <div class="col-8">
     <a routerLink="'/movies'">
@@ -26,13 +27,14 @@
       </tr>
       </tbody>
     </table>
-    <div *ngIf="userRatings.length < 1" style="margin-top: 100px">
+    <div *ngIf="userRatings.length < 1" style="padding-top: 20px">
       <h3>Add Rating</h3>
       <form #ratingForm="ngForm" >
         <div class="form-row align-items-md-center">
           <div class="col-auto">
             <label for="rating">Rating:</label>
             <select id="rating" class="form-control mb-2" name="rating" [(ngModel)]="newRating.rating">
+              <option disabled hidden [value]="selectUndefinedOptionValue">Select</option>
               <option *ngFor="let i of ratingRange" [value]="i"> {{ i }}</option>
             </select>
           </div>
@@ -48,10 +50,5 @@
         </div>
       </form>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4">
-      <img [src]="backdropPath" width="300px" alt="Card image cap">
   </div>
 </div>

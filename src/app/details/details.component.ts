@@ -23,10 +23,21 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ratingRange: number[] = [];
   newRating: Rating = {} as Rating;
   @ViewChild('ratingForm') ratingForm: NgForm;
+  selectUndefinedOptionValue: any;
 
   private currentUser: User;
   private querySubscription: Subscription;
   private ratingSubscription: Subscription;
+
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private apollo: Apollo,
+              private configService: ConfigService,
+              private userService: UserService
+  ) {
+    this.setRatingRange();
+  }
+
   ngOnInit() {
     this.backdropPath = '';
     this.posterPath = '';
@@ -68,14 +79,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.posterPath = this.configService.getConfig().baseUrl +
       this.configService.getConfig().posterSizes[3] +
       this.movieDetail.posterPath;
-  }
-
-  constructor(private activatedRoute: ActivatedRoute,
-              private apollo: Apollo,
-              private configService: ConfigService,
-              private userService: UserService
-  ) {
-    this.setRatingRange();
   }
 
   ngOnDestroy() {
